@@ -3,7 +3,7 @@ import ExitIcon from "@/assets/ExitIcon.svg";
 
 const SearchInput = () => {
   return (
-    <div className="gap- flex h-13 w-full max-w-md items-center bg-[#424242] px-5 py-2">
+    <div className="flex h-13 w-full max-w-md items-center gap-1 bg-[#424242] px-5 py-2">
       <SearchIcon className="h-5 w-5" />
       <input
         type="text"

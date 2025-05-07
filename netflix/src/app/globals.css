@@ -38,6 +38,10 @@
     outline: none;
   }
 
+  li {
+    list-style-type: none;
+  }
+
   .h1 {
     @apply text-[1.6718rem] leading-5 font-bold tracking-[-0.0046rem];
   }

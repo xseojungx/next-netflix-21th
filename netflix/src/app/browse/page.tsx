@@ -74,69 +74,142 @@ const Home = () => {
 
       {/* Movie List */}
       <main className="flex flex-col gap-5 pt-11 pb-8">
-        <div className="flex flex-col gap-4 px-4">
+        <section className="flex flex-col gap-4 px-4">
           <h2 className="text-[1.625rem] leading-5 font-bold">Previews</h2>
-          <div className="no-scrollbar flex gap-2 overflow-x-scroll">
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-25 w-25 shrink-0 cursor-pointer rounded-full object-cover"
-            />
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-25 w-25 shrink-0 cursor-pointer rounded-full object-cover"
-            />
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-25 w-25 shrink-0 cursor-pointer rounded-full object-cover"
-            />
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-25 w-25 shrink-0 cursor-pointer rounded-full object-cover"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 px-4">
+          <ul className="no-scrollbar flex gap-2 overflow-x-scroll">
+            <li
+              key={1}
+              className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+            <li
+              key={2}
+              className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+            <li
+              key={3}
+              className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+            <li
+              key={4}
+              className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+          </ul>
+        </section>
+        <section className="flex flex-col gap-4 px-4">
           <h2 className="h2">Continue Watching for Emelnalo</h2>
-          <div className="no-scrollbar flex gap-2 overflow-x-scroll">
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-44 w-25 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
-            />
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-44 w-25 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
-            />
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-44 w-25 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
-            />
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-44 w-25 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 px-4">
+          <ul className="no-scrollbar flex gap-2 overflow-x-scroll">
+            <li
+              key={1}
+              className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+            <li
+              key={2}
+              className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+            <li
+              key={3}
+              className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+            <li
+              key={4}
+              className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+          </ul>
+        </section>
+        <section className="flex flex-col gap-4 px-4">
           <h2 className="h2">Netflix Originals</h2>
           <div className="no-scrollbar flex gap-2 overflow-x-scroll">
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-63 w-39 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
-            />
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-63 w-39 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
-            />
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-63 w-39 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
-            />
-            <img
-              src={"/MovieThumbnail.svg"}
-              className="h-63 w-39 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
-            />
+            <li
+              key={1}
+              className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+            <li
+              key={2}
+              className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+            <li
+              key={3}
+              className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
+
+            <li
+              key={4}
+              className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
+            >
+              <img
+                src={"/MovieThumbnail.svg"}
+                alt={"Movie Preview"}
+                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </li>
           </div>
-        </div>
+        </section>
       </main>
     </div>
   );

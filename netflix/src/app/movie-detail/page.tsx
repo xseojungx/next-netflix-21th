@@ -11,7 +11,10 @@ const MovieDetail = () => {
       </section>
       <section className="flex w-full flex-col items-center pt-4">
         {/* 플레이 버튼 */}
-        <button className="h-[45px] w-[303px] shrink-0 cursor-not-allowed space-x-4 rounded-[5.625px] text-[20.462px] leading-[30px] font-semibold tracking-[-0.061px] text-black [background:#C4C4C4]">
+        <button
+          type="button"
+          className="h-[2.8125rem] w-[18.9375rem] shrink-0 cursor-not-allowed space-x-4 rounded-[0.35156rem] bg-[#C4C4C4] text-[1.27888rem] leading-[146.61%] font-semibold tracking-[-0.00381rem] text-black"
+        >
           <span>►</span>
           <span>Play</span>
         </button>

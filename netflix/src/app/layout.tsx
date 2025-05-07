@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-pretendard flex h-[100vh] w-full items-center justify-center bg-neutral-900 text-white">
-        <div className="box-border flex h-[812px] w-full max-w-[375px] flex-col">
+        <div className="box-border flex h-full w-full max-w-[375px] flex-col">
           {children}
         </div>
       </body>

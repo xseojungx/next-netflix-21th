@@ -25,7 +25,7 @@ const Home = () => {
   ];
   return (
     <div className="h-full w-full bg-black">
-      <div className="flex h-[26rem] w-full flex-col items-center justify-between bg-gray-500 py-2">
+      <div className="flex h-[26rem] w-full flex-col items-center justify-between bg-[lightgray] bg-[linear-gradient(180deg,rgba(0,0,0,0.45)_0%,rgba(0,0,0,0.00)_87.26%,#000_100%),url('/MovieThumbnail.svg')] bg-cover bg-[50%] bg-no-repeat py-2">
         <header className="flex w-full justify-between px-4 py-6">
           {HeaderList.map((item) => (
             <button
@@ -44,6 +44,8 @@ const Home = () => {
           </h1>
         </div>
       </div>
+
+      {/* Play Bar */}
       <div className="flex w-full justify-between px-12 py-4">
         <button
           type="button"
@@ -69,6 +71,73 @@ const Home = () => {
           <span className="text-[.875rem] leading-[1.25rem]">Info</span>
         </button>
       </div>
+
+      {/* Movie List */}
+      <main className="flex flex-col gap-5 pt-11 pb-8">
+        <div className="flex flex-col gap-4 px-4">
+          <h2 className="text-[1.625rem] leading-5 font-bold">Previews</h2>
+          <div className="no-scrollbar flex gap-2 overflow-x-scroll">
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-25 w-25 shrink-0 cursor-pointer rounded-full object-cover"
+            />
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-25 w-25 shrink-0 cursor-pointer rounded-full object-cover"
+            />
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-25 w-25 shrink-0 cursor-pointer rounded-full object-cover"
+            />
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-25 w-25 shrink-0 cursor-pointer rounded-full object-cover"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 px-4">
+          <h2 className="h2">Continue Watching for Emelnalo</h2>
+          <div className="no-scrollbar flex gap-2 overflow-x-scroll">
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-44 w-25 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
+            />
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-44 w-25 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
+            />
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-44 w-25 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
+            />
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-44 w-25 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 px-4">
+          <h2 className="h2">Netflix Originals</h2>
+          <div className="no-scrollbar flex gap-2 overflow-x-scroll">
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-63 w-39 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
+            />
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-63 w-39 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
+            />
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-63 w-39 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
+            />
+            <img
+              src={"/MovieThumbnail.svg"}
+              className="h-63 w-39 shrink-0 cursor-pointer rounded-[.125rem] object-cover"
+            />
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import NetflixIcon from "@/assets/images/NetflixIcon.svg";
 import PlusIcon from "@/assets/images/PlusIcon.svg";
 import PlayIcon from "@/assets/images/PlayIcon.svg";
@@ -24,7 +25,7 @@ const Home = () => {
     },
   ];
   return (
-    <div className="h-full w-full bg-black">
+    <div className="no-scrollbar h-full w-full overflow-y-auto bg-black">
       <div className="flex h-[26rem] w-full flex-col items-center justify-between bg-[lightgray] bg-[linear-gradient(180deg,rgba(0,0,0,0.45)_0%,rgba(0,0,0,0.00)_87.26%,#000_100%),url('/MovieThumbnail.svg')] bg-cover bg-[50%] bg-no-repeat py-2">
         <header className="flex w-full justify-between px-4 py-6">
           {HeaderList.map((item) => (
@@ -81,9 +82,11 @@ const Home = () => {
               key={1}
               className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
                 alt={"Movie Preview"}
+                width={25}
+                height={25}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -91,9 +94,11 @@ const Home = () => {
               key={2}
               className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
                 alt={"Movie Preview"}
+                width={25}
+                height={25}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -101,9 +106,11 @@ const Home = () => {
               key={3}
               className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
                 alt={"Movie Preview"}
+                width={25}
+                height={25}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -111,9 +118,11 @@ const Home = () => {
               key={4}
               className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
                 alt={"Movie Preview"}
+                width={25}
+                height={25}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -126,9 +135,11 @@ const Home = () => {
               key={1}
               className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
+                alt={"Continue Watching for Emelnalo"}
+                width={25}
+                height={44}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -136,9 +147,11 @@ const Home = () => {
               key={2}
               className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
+                alt={"Continue Watching for Emelnalo"}
+                width={25}
+                height={44}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -146,9 +159,11 @@ const Home = () => {
               key={3}
               className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
+                alt={"Continue Watching for Emelnalo"}
+                width={25}
+                height={44}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -156,9 +171,11 @@ const Home = () => {
               key={4}
               className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
+                alt={"Continue Watching for Emelnalo"}
+                width={25}
+                height={44}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -171,9 +188,11 @@ const Home = () => {
               key={1}
               className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
                 alt={"Movie Preview"}
+                width={39}
+                height={63}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -181,9 +200,11 @@ const Home = () => {
               key={2}
               className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
                 alt={"Movie Preview"}
+                width={39}
+                height={63}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
@@ -191,20 +212,23 @@ const Home = () => {
               key={3}
               className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
                 alt={"Movie Preview"}
+                width={39}
+                height={63}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>
-
             <li
               key={4}
               className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
             >
-              <img
+              <Image
                 src={"/MovieThumbnail.svg"}
                 alt={"Movie Preview"}
+                width={39}
+                height={63}
                 className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
               />
             </li>

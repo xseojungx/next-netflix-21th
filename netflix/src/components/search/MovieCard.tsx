@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Preview from "@/assets/search-preview.png";
 import PlayIcon from "@/assets/PlayIcon.svg";
+
 const MovieCard = () => {
   return (
     <div className="box-border flex h-19 w-full cursor-pointer items-center border-0 bg-[#424242] pr-3">
@@ -15,7 +16,7 @@ const MovieCard = () => {
         제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목
       </span>
       <button type="button" className="cursor-not-allowed">
-        <PlayIcon />
+        <Image src={PlayIcon} alt="" />
       </button>
     </div>
   );

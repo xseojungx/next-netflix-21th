@@ -1,9 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import NetflixIcon from "@/assets/images/NetflixIcon.svg";
 import PlusIcon from "@/assets/images/PlusIcon.svg";
 import PlayIcon from "@/assets/images/PlayIcon.svg";
 import InfoIcon from "@/assets/images/InfoIcon.svg";
 import Top10 from "@/assets/images/Top10.svg";
+import { useEffect, useState } from "react";
+import cn from "@/utils/cn";
 
 const Home = () => {
   const HeaderList = [
@@ -24,10 +28,83 @@ const Home = () => {
       name: "My List",
     },
   ];
+
+  const TOP10_LIST = [
+    {
+      ranking: 1,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+    {
+      ranking: 2,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+    {
+      ranking: 3,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+    {
+      ranking: 4,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+    {
+      ranking: 5,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+    {
+      ranking: 6,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+    {
+      ranking: 7,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+    {
+      ranking: 8,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+    {
+      ranking: 9,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+    {
+      ranking: 10,
+      thumbnail: "/MovieThumbnail.svg",
+    },
+  ];
+
+  const [currentTopIndex, setCurrentTopIndex] = useState<number>(0);
+  const [fadeOut, setFadeOut] = useState<boolean>(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFadeOut(true);
+
+      setTimeout(() => {
+        setCurrentTopIndex((prev) => (prev + 1) % TOP10_LIST.length);
+        setFadeOut(false);
+      }, 1000);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentTop = TOP10_LIST[currentTopIndex];
+
   return (
     <div className="no-scrollbar h-full w-full overflow-y-auto bg-black">
-      <div className="flex h-[26rem] w-full flex-col items-center justify-between bg-[lightgray] bg-[linear-gradient(180deg,rgba(0,0,0,0.45)_0%,rgba(0,0,0,0.00)_87.26%,#000_100%),url('/MovieThumbnail.svg')] bg-cover bg-[50%] bg-no-repeat py-2">
-        <header className="flex w-full justify-between px-4 py-6">
+      <div className="relative flex h-[26rem] w-full flex-col items-center justify-between py-2">
+        <Image
+          src={currentTop.thumbnail}
+          alt="Top Movie Thumbnail"
+          fill
+          priority
+          className={cn(
+            "absolute inset-0 object-cover duration-1000",
+            fadeOut ? "opacity-0" : "opacity-100",
+          )}
+        />
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/45 via-transparent to-black" />
+        <header className="z-20 flex w-full justify-between px-4 py-6">
           {HeaderList.map((item) => (
             <button
               type="button"
@@ -42,10 +119,10 @@ const Home = () => {
             </button>
           ))}
         </header>
-        <div className="flex items-center gap-2">
+        <div className="z-20 flex items-center gap-2">
           <Image src={Top10} alt="" />
           <h1 className="text-[.875rem] leading-5 font-bold">
-            #2 in Nigeria Today
+            #{currentTop.ranking} in Nigeria Today
           </h1>
         </div>
       </div>

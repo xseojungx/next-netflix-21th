@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    domains: ["tmdb.org", "themoviedb.org"],
+    remotePatterns: [new URL("https://image.tmdb.org/t/p/**")],
+  },
+
   /* config options here */
   webpack(config) {
     // Grab the existing rule that handles SVG imports

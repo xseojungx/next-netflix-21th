@@ -44,3 +44,9 @@ module.exports = {
     ];
   },
 };
+module.exports = {
+  images: {
+    domains: ['tmdb.org', 'themoviedb.org'],
+    remotePatterns: [new URL('https://image.tmdb.org/t/p/**')],
+  },
+};

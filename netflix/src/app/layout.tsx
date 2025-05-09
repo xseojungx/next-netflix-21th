@@ -1,6 +1,7 @@
 // app/layout.tsx (Next.js 13~15 기준 App Router 구조)
 import type { Metadata } from "next";
 import "./globals.css";
+import NavBar from "@/components/common/NavBar";
 
 export const metadata: Metadata = {
   title: "CEOS Netflix",
@@ -14,10 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-pretendard flex h-[100vh] w-full items-center justify-center bg-neutral-900 text-white">
-        <div className="box-border flex h-full w-full max-w-[375px] flex-col">
+      <body className="font-pretendard flex h-[100vh] w-full flex-col items-center justify-center bg-neutral-900 text-white">
+        <div className="relative box-border flex h-full w-full max-w-[375px] flex-col pb-[3.5rem]">
           {children}
         </div>
+        <NavBar />
       </body>
     </html>
   );

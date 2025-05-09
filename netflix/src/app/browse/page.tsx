@@ -34,12 +34,16 @@ const Home = () => {
               className="flex cursor-pointer items-center text-[1.125rem] leading-[1.875rem]"
               key={item.key}
             >
-              {item.name === "Netflix" ? <NetflixIcon /> : item.name}
+              {item.name === "Netflix" ? (
+                <Image src={NetflixIcon} alt="Netflix" />
+              ) : (
+                item.name
+              )}
             </button>
           ))}
         </header>
         <div className="flex items-center gap-2">
-          <Top10 />
+          <Image src={Top10} alt="" />
           <h1 className="text-[.875rem] leading-5 font-bold">
             #2 in Nigeria Today
           </h1>
@@ -52,14 +56,14 @@ const Home = () => {
           type="button"
           className="flex w-12 cursor-pointer flex-col items-center justify-between"
         >
-          <PlusIcon />
+          <Image src={PlusIcon} alt="" />
           <span className="text-[.875rem] leading-[1.25rem]">My List</span>
         </button>
         <button
           type="button"
           className="flex shrink-0 cursor-pointer items-center gap-[1.125rem] rounded-[.375rem] bg-[#C3C4C4] py-2 pr-[.625rem] pl-5 hover:bg-[#8a8a8a]"
         >
-          <PlayIcon />
+          <Image src={PlayIcon} alt="" />
           <span className="text-[1.25rem] leading-[1.875rem] font-semibold text-black">
             Play
           </span>
@@ -68,7 +72,7 @@ const Home = () => {
           type="button"
           className="flex w-12 cursor-pointer flex-col items-center justify-between"
         >
-          <InfoIcon />
+          <Image src={InfoIcon} alt="" />
           <span className="text-[.875rem] leading-[1.25rem]">Info</span>
         </button>
       </div>

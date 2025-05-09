@@ -1,5 +1,6 @@
 import SearchInput from "@/components/search/SearchInput";
 import MovieCard from "@/components/search/MovieCard";
+
 const SearchPage = () => {
   return (
     <div className="flex h-screen w-full flex-col bg-black pt-11">

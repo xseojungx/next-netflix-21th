@@ -21,8 +21,8 @@ export default function RootLayout({
       <body className="font-pretendard flex h-[100vh] w-full flex-col items-center justify-center bg-neutral-900 text-white">
         <div className="relative box-border flex h-full w-full max-w-[375px] flex-col pb-[3.5rem]">
           {children}
+          <NavBar />
         </div>
-        <NavBar />
       </body>
     </html>
   );

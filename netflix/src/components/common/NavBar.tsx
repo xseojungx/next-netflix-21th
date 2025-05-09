@@ -46,7 +46,7 @@ const NavBar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 flex h-fit w-full max-w-[375px] bg-black py-2">
+    <nav className="fixed bottom-0 flex h-[3.5rem] w-full max-w-[375px] bg-black py-2">
       {NAVBAR_ITEMS.map((item) => {
         const selectedPath = pathname.includes(item.destination);
         const Icon = item.icon;

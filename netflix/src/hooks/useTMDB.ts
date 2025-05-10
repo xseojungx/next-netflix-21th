@@ -28,6 +28,13 @@ export const usePopularMovies = () => {
   });
 };
 
+export const useTopRatedMovies = () => {
+  return useQuery<MovieResponse>({
+    queryKey: ["topRatedMovies"],
+    queryFn: () => fetchTMDB("/movie/top_rated"),
+  });
+};
+
 export const useUpcomingMovies = (params: TMDBQueryParams = {}) => {
   return useQuery<MovieResponse>({
     queryKey: ["upcomingMovies", params],

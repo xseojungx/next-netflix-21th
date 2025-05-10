@@ -8,7 +8,11 @@ import InfoIcon from "@/assets/images/InfoIcon.svg";
 import Top10 from "@/assets/images/Top10.svg";
 import { useEffect, useState } from "react";
 import cn from "@/utils/cn";
-import { usePopularMovies } from "@/hooks/useTMDB";
+import {
+  usePopularMovies,
+  useTopRatedMovies,
+  useUpcomingMovies,
+} from "@/hooks/useTMDB";
 
 const Home = () => {
   const HeaderList = [
@@ -30,53 +34,24 @@ const Home = () => {
     },
   ];
 
-  const movie = [
-    {
-      ranking: 1,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-    {
-      ranking: 2,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-    {
-      ranking: 3,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-    {
-      ranking: 4,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-    {
-      ranking: 5,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-    {
-      ranking: 6,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-    {
-      ranking: 7,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-    {
-      ranking: 8,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-    {
-      ranking: 9,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-    {
-      ranking: 10,
-      thumbnail: "/MovieThumbnail.svg",
-    },
-  ];
-
   const [currentTopIndex, setCurrentTopIndex] = useState<number>(0);
   const [fadeOut, setFadeOut] = useState<boolean>(false);
 
-  const { data: TOP10_LIST, isLoading, error } = usePopularMovies();
+  const {
+    data: TOP10_LIST,
+    isLoading: isTop10Loading,
+    error: top10Error,
+  } = useTopRatedMovies();
+  const {
+    data: upcomingMovies,
+    isLoading: isUpcomingMoviesLoading,
+    error: upcomingMoviesError,
+  } = useUpcomingMovies();
+  const {
+    data: popularMovies,
+    isLoading: isPopularMoviesLoading,
+    error: popularMoviesError,
+  } = usePopularMovies();
 
   useEffect(() => {
     if (!TOP10_LIST) return;
@@ -101,8 +76,8 @@ const Home = () => {
     return () => clearTimeout(timeout);
   }, [fadeOut]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isTop10Loading) return <div>Loading...</div>;
+  if (top10Error) return <div>Error: {top10Error.message}</div>;
   if (!TOP10_LIST) return <div>Top Rated Movie not found</div>;
 
   const currentTop = TOP10_LIST?.results[currentTopIndex];
@@ -114,7 +89,7 @@ const Home = () => {
           src={`https://image.tmdb.org/t/p/original${currentTop.poster_path}`}
           alt="Top Movie Thumbnail"
           fill
-          sizes="100vw"
+          sizes="100"
           priority
           className={cn(
             "absolute inset-0 object-cover duration-1000",
@@ -173,160 +148,62 @@ const Home = () => {
         <section className="flex flex-col gap-4 px-4">
           <h2 className="text-[1.625rem] leading-5 font-bold">Previews</h2>
           <ul className="no-scrollbar flex gap-2 overflow-x-scroll">
-            <li
-              key={1}
-              className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
-                width={25}
-                height={25}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
-            <li
-              key={2}
-              className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
-                width={25}
-                height={25}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
-            <li
-              key={3}
-              className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
-                width={25}
-                height={25}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
-            <li
-              key={4}
-              className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
-                width={25}
-                height={25}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
+            {TOP10_LIST?.results.map((movie) => (
+              <li
+                key={movie.id}
+                className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
+              >
+                <Image
+                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                  alt={movie.title}
+                  width={100}
+                  height={100}
+                  className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </li>
+            ))}
           </ul>
         </section>
         <section className="flex flex-col gap-4 px-4">
-          <h2 className="h2">Continue Watching for Emelnalo</h2>
+          <h2 className="h2">Upcoming Movies</h2>
           <ul className="no-scrollbar flex gap-2 overflow-x-scroll">
-            <li
-              key={1}
-              className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Continue Watching for Emelnalo"}
-                width={25}
-                height={44}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
-            <li
-              key={2}
-              className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Continue Watching for Emelnalo"}
-                width={25}
-                height={44}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
-            <li
-              key={3}
-              className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Continue Watching for Emelnalo"}
-                width={25}
-                height={44}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
-            <li
-              key={4}
-              className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Continue Watching for Emelnalo"}
-                width={25}
-                height={44}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
+            {isUpcomingMoviesLoading ? (
+              <div>movies loading...</div>
+            ) : (
+              upcomingMovies?.results.map((movie) => (
+                <li
+                  key={movie.id}
+                  className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+                >
+                  <Image
+                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                    alt={movie.title}
+                    width={100}
+                    height={100}
+                    className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </li>
+              ))
+            )}
           </ul>
         </section>
         <section className="flex flex-col gap-4 px-4">
-          <h2 className="h2">Netflix Originals</h2>
+          <h2 className="h2">Popular Movies</h2>
           <div className="no-scrollbar flex gap-2 overflow-x-scroll">
-            <li
-              key={1}
-              className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
-                width={39}
-                height={63}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
-            <li
-              key={2}
-              className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
-                width={39}
-                height={63}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
-            <li
-              key={3}
-              className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
-                width={39}
-                height={63}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
-            <li
-              key={4}
-              className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
-            >
-              <Image
-                src={"/MovieThumbnail.svg"}
-                alt={"Movie Preview"}
-                width={39}
-                height={63}
-                className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </li>
+            {popularMovies?.results.map((movie) => (
+              <li
+                key={movie.id}
+                className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
+              >
+                <Image
+                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                  alt={movie.title}
+                  width={100}
+                  height={100}
+                  className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </li>
+            ))}
           </div>
         </section>
       </main>

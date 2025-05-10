@@ -11,6 +11,7 @@ import cn from "@/utils/cn";
 import {
   usePopularMovies,
   useTopRatedMovies,
+  useTopRatedTvSeries,
   useUpcomingMovies,
 } from "@/hooks/useTMDB";
 
@@ -42,6 +43,11 @@ const Home = () => {
     isLoading: isTop10Loading,
     error: top10Error,
   } = useTopRatedMovies();
+  const {
+    data: topRatedTvSeries,
+    isLoading: isTopRatedTvSeriesLoading,
+    error: topRatedTvSeriesError,
+  } = useTopRatedTvSeries();
   const {
     data: upcomingMovies,
     isLoading: isUpcomingMoviesLoading,
@@ -87,7 +93,7 @@ const Home = () => {
       <div className="relative flex h-[26rem] w-full flex-col items-center justify-between py-2">
         <Image
           src={`https://image.tmdb.org/t/p/original${currentTop.poster_path}`}
-          alt="Top Movie Thumbnail"
+          alt={currentTop.title || "Top Rated Movie Poster"}
           fill
           sizes="100"
           priority
@@ -111,7 +117,7 @@ const Home = () => {
         <div className="z-20 flex items-center gap-2">
           <Top10 />
           <h1 className="text-[.875rem] leading-5 font-bold">
-            #{currentTopIndex + 1} in Korea Today
+            #{currentTopIndex + 1} in US Today
           </h1>
         </div>
       </div>
@@ -155,7 +161,7 @@ const Home = () => {
               >
                 <Image
                   src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                  alt={movie.title}
+                  alt={movie.title || "Top Rated Movie poster"}
                   width={100}
                   height={100}
                   className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
@@ -177,7 +183,7 @@ const Home = () => {
                 >
                   <Image
                     src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                    alt={movie.title}
+                    alt={movie.title || "Upcoming Movies Poster"}
                     width={100}
                     height={100}
                     className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
@@ -188,22 +194,49 @@ const Home = () => {
           </ul>
         </section>
         <section className="flex flex-col gap-4 px-4">
+          <h2 className="h2">Top Rated TV Series</h2>
+          <div className="no-scrollbar flex gap-2 overflow-x-scroll">
+            {isTopRatedTvSeriesLoading ? (
+              <>tv series loading...</>
+            ) : (
+              topRatedTvSeries?.results.map((tv) => (
+                <li
+                  key={tv.id}
+                  className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
+                >
+                  <Image
+                    src={`https://image.tmdb.org/t/p/original${tv.poster_path}`}
+                    alt={tv.title || "Top rated TV Series Poster"}
+                    width={100}
+                    height={100}
+                    className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </li>
+              ))
+            )}
+          </div>
+        </section>
+        <section className="flex flex-col gap-4 px-4">
           <h2 className="h2">Popular Movies</h2>
           <div className="no-scrollbar flex gap-2 overflow-x-scroll">
-            {popularMovies?.results.map((movie) => (
-              <li
-                key={movie.id}
-                className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
-              >
-                <Image
-                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                  alt={movie.title}
-                  width={100}
-                  height={100}
-                  className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-                />
-              </li>
-            ))}
+            {isPopularMoviesLoading ? (
+              <div>movies loading...</div>
+            ) : (
+              popularMovies?.results.map((movie) => (
+                <li
+                  key={movie.id}
+                  className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+                >
+                  <Image
+                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                    alt={movie.title || "Popular Movie Poster"}
+                    width={100}
+                    height={100}
+                    className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </li>
+              ))
+            )}
           </div>
         </section>
       </main>

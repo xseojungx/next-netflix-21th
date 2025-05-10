@@ -39,7 +39,7 @@ const Home = () => {
   const [fadeOut, setFadeOut] = useState<boolean>(false);
 
   const {
-    data: TOP10_LIST,
+    data: topRatedMovies,
     isLoading: isTop10Loading,
     error: top10Error,
   } = useTopRatedMovies();
@@ -60,7 +60,7 @@ const Home = () => {
   } = usePopularMovies();
 
   useEffect(() => {
-    if (!TOP10_LIST) return;
+    if (!topRatedMovies) return;
 
     const interval = setInterval(() => {
       // 먼저 fadeOut 시작
@@ -68,7 +68,7 @@ const Home = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [TOP10_LIST]);
+  }, [topRatedMovies]);
 
   useEffect(() => {
     if (!fadeOut) return;
@@ -82,26 +82,29 @@ const Home = () => {
     return () => clearTimeout(timeout);
   }, [fadeOut]);
 
-  if (isTop10Loading) return <div>Loading...</div>;
-  if (top10Error) return <div>Error: {top10Error.message}</div>;
-  if (!TOP10_LIST) return <div>Top Rated Movie not found</div>;
-
-  const currentTop = TOP10_LIST?.results[currentTopIndex];
-
   return (
     <div className="no-scrollbar h-full w-full overflow-y-auto bg-black">
       <div className="relative flex h-[26rem] w-full flex-col items-center justify-between py-2">
-        <Image
-          src={`https://image.tmdb.org/t/p/original${currentTop.poster_path}`}
-          alt={currentTop.title || "Top Rated Movie Poster"}
-          fill
-          sizes="100"
-          priority
-          className={cn(
-            "absolute inset-0 object-cover duration-1000",
-            fadeOut ? "opacity-0" : "opacity-100",
-          )}
-        />
+        {isTop10Loading ? (
+          <div className="absolute inset-0">Loading...</div>
+        ) : top10Error ? (
+          <div className="absolute inset-0">Error: {top10Error.message}</div>
+        ) : (
+          <Image
+            src={`https://image.tmdb.org/t/p/original${topRatedMovies?.results[currentTopIndex].poster_path}`}
+            alt={
+              topRatedMovies?.results[currentTopIndex].title ||
+              "Top Rated Movie Poster"
+            }
+            fill
+            sizes="100"
+            priority
+            className={cn(
+              "absolute inset-0 object-cover duration-1000",
+              fadeOut ? "opacity-0" : "opacity-100",
+            )}
+          />
+        )}
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/45 via-transparent to-black" />
         <header className="z-20 flex w-full justify-between px-4 py-6">
           {HeaderList.map((item) => (
@@ -154,27 +157,31 @@ const Home = () => {
         <section className="flex flex-col gap-4 px-4">
           <h2 className="text-[1.625rem] leading-5 font-bold">Previews</h2>
           <ul className="no-scrollbar flex gap-2 overflow-x-scroll">
-            {TOP10_LIST?.results.map((movie) => (
-              <li
-                key={movie.id}
-                className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
-              >
-                <Image
-                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                  alt={movie.title || "Top Rated Movie poster"}
-                  width={100}
-                  height={100}
-                  className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
-                />
-              </li>
-            ))}
+            {isTop10Loading ? (
+              <div className="h-25">Movies loading...</div>
+            ) : (
+              topRatedMovies?.results.map((movie) => (
+                <li
+                  key={movie.id}
+                  className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
+                >
+                  <Image
+                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                    alt={movie.title || "Top Rated Movie poster"}
+                    width={100}
+                    height={100}
+                    className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </li>
+              ))
+            )}
           </ul>
         </section>
         <section className="flex flex-col gap-4 px-4">
           <h2 className="h2">Upcoming Movies</h2>
           <ul className="no-scrollbar flex gap-2 overflow-x-scroll">
             {isUpcomingMoviesLoading ? (
-              <div>movies loading...</div>
+              <div className="h-44">Movies loading...</div>
             ) : (
               upcomingMovies?.results.map((movie) => (
                 <li
@@ -197,7 +204,7 @@ const Home = () => {
           <h2 className="h2">Top Rated TV Series</h2>
           <div className="no-scrollbar flex gap-2 overflow-x-scroll">
             {isTopRatedTvSeriesLoading ? (
-              <>tv series loading...</>
+              <div className="h-63">tv series loading...</div>
             ) : (
               topRatedTvSeries?.results.map((tv) => (
                 <li

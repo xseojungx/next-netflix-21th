@@ -26,7 +26,6 @@ export default function RootLayout({
         {children}
         </QueryClientProvider>
         </div>
-        <NavBar />
       </body>
     </html>
   );

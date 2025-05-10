@@ -1,4 +1,3 @@
-import Image from "next/image";
 import SearchIcon from "@/assets/images/SearchIcon.svg";
 import ExitIcon from "@/assets/images/ExitIcon.svg";
 import { useRouter } from "next/navigation";

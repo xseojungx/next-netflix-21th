@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { MovieResponse, MovieDetails, TMDBQueryParams } from "@/types/tmdb";
+import { MovieResponse, MovieDetails, TMDBQueryParams, TvDetails } from "@/types/tmdb";
 
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_TMDB_API_BASE_URL;
@@ -57,6 +57,15 @@ export const useMovieDetails = (movieId: number) => {
     queryFn: () =>
       fetchTMDB(`/movie/${movieId}`, { append_to_response: "videos" }),
     enabled: !!movieId,
+  });
+};
+
+export const useTvDetails = (tvId: number) => {
+  return useQuery<TvDetails>({
+    queryKey: ["tvDetails", tvId],
+    queryFn: () =>
+      fetchTMDB(`/tv/${tvId}`, { append_to_response: "videos" }),
+    enabled: !!tvId,
   });
 };
 

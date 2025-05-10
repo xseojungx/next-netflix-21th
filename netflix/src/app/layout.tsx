@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="font-pretendard flex h-[100vh] w-full flex-col items-center justify-center bg-neutral-900 text-white">
-        <div className="relative box-border flex h-full w-full max-w-[375px] flex-col pb-[3.5rem]">
+        <div className="relative box-border flex h-full w-full max-w-[450px] flex-col pb-[3.5rem]">
           <Providers>{children}</Providers>
         </div>
         <NavBar />

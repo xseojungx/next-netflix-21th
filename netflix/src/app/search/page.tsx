@@ -6,8 +6,8 @@ import SearchInput from "@/components/search/SearchInput";
 import MovieCard from "@/components/search/MovieCard";
 import { useSearchMovies, usePopularMovies } from "@/hooks/useTMDB";
 import { Movie } from '@/types/tmdb';
-
-const SearchPage = () => {
+import { Suspense } from 'react';
+const SearchContent = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
 
@@ -94,4 +94,12 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+const Search = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchContent />
+    </Suspense>
+  );
+};
+
+export default Search;

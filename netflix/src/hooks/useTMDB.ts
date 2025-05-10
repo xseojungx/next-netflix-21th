@@ -10,7 +10,8 @@ const fetchTMDB = async <T>(
 ): Promise<T> => {
   const queryParams = new URLSearchParams({
     api_key: API_KEY || "",
-    language: "ko-KR",
+    language: "en-US",
+    include_adult: "false",
     ...params,
   });
 
@@ -21,10 +22,10 @@ const fetchTMDB = async <T>(
   return response.json();
 };
 
-export const usePopularMovies = () => {
+export const usePopularMovies = (page: number = 1) => {
   return useQuery<MovieResponse>({
-    queryKey: ["popularMovies"],
-    queryFn: () => fetchTMDB("/movie/popular"),
+    queryKey: ["popularMovies", page],
+    queryFn: () => fetchTMDB("/movie/popular", { page }),
   });
 };
 
@@ -61,11 +62,11 @@ export const useMovieDetails = (movieId: number) => {
 
 export const useSearchMovies = (
   query: string,
-  params: TMDBQueryParams = {},
+  page: number = 1,
 ) => {
   return useQuery<MovieResponse>({
-    queryKey: ["searchMovies", query, params],
-    queryFn: () => fetchTMDB("/search/movie", { ...params, query }),
+    queryKey: ["searchMovies", query, page],
+    queryFn: () => fetchTMDB("/search/movie", { query, page}),
     enabled: !!query,
   });
 };

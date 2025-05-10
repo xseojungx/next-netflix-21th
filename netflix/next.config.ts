@@ -32,15 +32,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
-module.exports = {
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/browse",
-        permanent: true,
-      },
-    ];
-  },
-};

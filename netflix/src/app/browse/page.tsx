@@ -15,6 +15,10 @@ import {
   useUpcomingMovies,
 } from "@/hooks/useTMDB";
 
+import { goToMovieDetail, goToTvDetail } from "@/utils/routeFunction";
+import { useRouter } from "next/navigation";
+
+
 const Home = () => {
   const HeaderList = [
     {
@@ -43,21 +47,12 @@ const Home = () => {
     isLoading: isTop10Loading,
     error: top10Error,
   } = useTopRatedMovies();
-  const {
-    data: topRatedTvSeries,
-    isLoading: isTopRatedTvSeriesLoading,
-    error: topRatedTvSeriesError,
-  } = useTopRatedTvSeries();
-  const {
-    data: upcomingMovies,
-    isLoading: isUpcomingMoviesLoading,
-    error: upcomingMoviesError,
-  } = useUpcomingMovies();
-  const {
-    data: popularMovies,
-    isLoading: isPopularMoviesLoading,
-    error: popularMoviesError,
-  } = usePopularMovies();
+  const { data: topRatedTvSeries, isLoading: isTopRatedTvSeriesLoading } =
+    useTopRatedTvSeries();
+  const { data: upcomingMovies, isLoading: isUpcomingMoviesLoading } =
+    useUpcomingMovies();
+  const { data: popularMovies, isLoading: isPopularMoviesLoading } =
+    usePopularMovies();
 
   useEffect(() => {
     if (!topRatedMovies) return;
@@ -81,6 +76,15 @@ const Home = () => {
 
     return () => clearTimeout(timeout);
   }, [fadeOut]);
+
+  //영화 상세 페이지로 이동
+  const router = useRouter();
+  const onMovieClick = (movieId: number) => {
+    goToMovieDetail(router, movieId);
+  };  
+  const onTvClick = (tvId: number) => {
+    goToTvDetail(router, tvId);
+  };
 
   return (
     <div className="no-scrollbar h-full w-full overflow-y-auto bg-black">
@@ -164,6 +168,7 @@ const Home = () => {
                 <li
                   key={movie.id}
                   className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
+                  onClick={() => onMovieClick(movie.id)}
                 >
                   <Image
                     src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -187,6 +192,7 @@ const Home = () => {
                 <li
                   key={movie.id}
                   className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+                  onClick={() => onMovieClick(movie.id)}
                 >
                   <Image
                     src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -210,6 +216,7 @@ const Home = () => {
                 <li
                   key={tv.id}
                   className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
+                  onClick={() => onTvClick(tv.id)}
                 >
                   <Image
                     src={`https://image.tmdb.org/t/p/original${tv.poster_path}`}
@@ -233,6 +240,7 @@ const Home = () => {
                 <li
                   key={movie.id}
                   className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+                  onClick={() => onMovieClick(movie.id)}
                 >
                   <Image
                     src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}

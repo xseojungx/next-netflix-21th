@@ -34,3 +34,19 @@ export interface Movie {
     language?: string;
     query?: string;
   }
+  
+  export interface TvDetails extends Movie {
+    original_name: string;
+    name: string;
+    first_air_date: string;
+    genres: { id: number; name: string }[];
+    status: string;
+    tagline: string;
+    videos: {
+      results: {
+        key: string;
+        type: string;
+        site: string;
+      }[];
+    };
+  }

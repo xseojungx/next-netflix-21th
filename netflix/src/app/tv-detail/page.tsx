@@ -1,23 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { useMovieDetails } from "@/hooks/useTMDB";
+import { useTvDetails } from "@/hooks/useTMDB";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-const MovieDetailContent = () => {
-  const searchParams = useSearchParams();
-  const movieId = searchParams.get("id");
 
-  const { data: movie, isLoading, error } = useMovieDetails(Number(movieId));
+
+const TvDetailContent = () => {
+  const searchParams = useSearchParams();
+  const tvId = searchParams.get("id");
+
+  const { data: tv, isLoading, error } = useTvDetails(Number(tvId));
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  if (!movie) return <div>Movie not found</div>;
+  if (!tv) return <div>tv not found</div>;
 
-  const imageUrl = movie.backdrop_path 
-    ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
-    : `https://image.tmdb.org/t/p/original${movie.poster_path}`;
-
+  const imageUrl = tv.backdrop_path 
+    ? `https://image.tmdb.org/t/p/original${tv.backdrop_path}`
+    : `https://image.tmdb.org/t/p/original${tv.poster_path}`;
+console.log(tv);
   return (
     <div className="flex h-full w-full flex-col items-center bg-black">
       {/* 상단 프리뷰 사진 */}
@@ -25,7 +27,7 @@ const MovieDetailContent = () => {
         <Image
           src={imageUrl}
           fill
-          alt={movie.title}
+          alt={tv.original_name}
           className="object-cover"
           priority
         />
@@ -41,10 +43,10 @@ const MovieDetailContent = () => {
           <span>Play</span>
         </button>
         <article className="m-8 flex flex-col items-center space-y-6 text-white">
-          <h1 className="h1 w-full">{movie.title}</h1>
-          <p className="b2 w-full">{movie.overview}</p>
+          <h1 className="h1 w-full">{tv.original_name}</h1>
+          <p className="b2 w-full">{tv.overview}</p>
           <div className="flex gap-2">
-            {movie.genres.map((genre) => (
+            {tv.genres.map((genre) => (
               <span
                 key={genre.id}
                 className="rounded-full bg-gray-800 px-3 py-1 text-sm"
@@ -59,12 +61,12 @@ const MovieDetailContent = () => {
   );
 };
 
-const MovieDetail = () => {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <MovieDetailContent />
-    </Suspense>
-  );
-};
+const TvDetail = () => {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <TvDetailContent />
+      </Suspense>
+    );
+  };
 
-export default MovieDetail;
+export default TvDetail;

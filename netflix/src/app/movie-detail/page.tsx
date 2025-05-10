@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useMovieDetails } from "@/hooks/useTMDB";
 import { useSearchParams } from "next/navigation";
-
-const MovieDetail = () => {
+import { Suspense } from "react";
+const MovieDetailContent = () => {
   const searchParams = useSearchParams();
   const movieId = searchParams.get("id");
 
@@ -56,6 +56,14 @@ const MovieDetail = () => {
         </article>
       </section>
     </div>
+  );
+};
+
+const MovieDetail = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MovieDetailContent />
+    </Suspense>
   );
 };
 

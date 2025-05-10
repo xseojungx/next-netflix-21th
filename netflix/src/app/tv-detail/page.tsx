@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { useTvDetails } from "@/hooks/useTMDB";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-const TvDetail = () => {
+
+const TvDetailContent = () => {
   const searchParams = useSearchParams();
   const tvId = searchParams.get("id");
 
@@ -58,5 +60,13 @@ console.log(tv);
     </div>
   );
 };
+
+const TvDetail = () => {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <TvDetailContent />
+      </Suspense>
+    );
+  };
 
 export default TvDetail;

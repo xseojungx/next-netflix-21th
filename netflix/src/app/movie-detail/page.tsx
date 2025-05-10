@@ -14,12 +14,16 @@ const MovieDetail = () => {
   if (error) return <div>Error: {error.message}</div>;
   if (!movie) return <div>Movie not found</div>;
 
+  const imageUrl = movie.backdrop_path 
+    ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+    : `https://image.tmdb.org/t/p/original${movie.poster_path}`;
+
   return (
     <div className="flex h-full w-full flex-col items-center bg-black">
       {/* 상단 프리뷰 사진 */}
       <section className="relative h-[26rem] w-full">
         <Image
-          src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+          src={imageUrl}
           fill
           alt={movie.title}
           className="object-cover"

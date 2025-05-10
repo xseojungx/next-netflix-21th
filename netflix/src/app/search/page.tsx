@@ -10,11 +10,14 @@ import { Movie } from '@/types/tmdb';
 const SearchPage = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
+
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [page, setPage] = useState(1);
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
-  const observerRef = useRef<IntersectionObserver | null>(null);
   const [firstLoad, setFirstLoad] = useState(false);
+
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
 
   const lastMovieRef = useCallback((node: HTMLDivElement) => {
     if (observerRef.current) observerRef.current.disconnect();
@@ -31,13 +34,13 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (!firstLoad) {
-      setFirstLoad(true)
+      setFirstLoad(true) // 첫 번째 로드 여부 확인
       return;
     }
     const timer = setTimeout(() => {
       setDebouncedQuery(query);
       setPage(1);
-      setAllMovies([]); // Reset movies when query changes
+      setAllMovies([]); // 입력 쿼리 바뀔때마다 영화 목록 초기화
     }, 1000);
     
     return () => clearTimeout(timer);
@@ -55,6 +58,7 @@ const SearchPage = () => {
   }, [searchResults?.results, popularMovies?.results, page, query]);
 
   const isLoading = isSearchLoading || isPopularLoading;
+  
   const hasMore = query 
     ? (searchResults?.page ?? 0) < (searchResults?.total_pages ?? 0)
     : (popularMovies?.page ?? 0) < (popularMovies?.total_pages ?? 0);

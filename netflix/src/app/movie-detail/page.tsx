@@ -1,6 +1,7 @@
 'use client';
 
 import PreviewImg from "@/assets/movie-detail-preview.png";
+
 import Image from "next/image";
 import { useMovieDetails } from '@/hooks/useTMDB';
 import { useSearchParams } from 'next/navigation';
@@ -23,7 +24,6 @@ const MovieDetail = () => {
     <div className="flex h-full w-full flex-col items-center bg-black">
       {/* 상단 프리뷰 사진 */}
       <section className="relative h-[26rem] w-full">
-
         <Image 
           src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} 
           fill 
@@ -31,6 +31,7 @@ const MovieDetail = () => {
           className="object-cover"
           priority
         />
+
         <div className="absolute bottom-0 left-0 h-full w-full [background:linear-gradient(180deg,rgba(0,0,0,0.45)_0%,rgba(0,0,0,0.00)_87.26%,#000_100%)]" />
       </section>
       <section className="flex w-full flex-col items-center pt-4">

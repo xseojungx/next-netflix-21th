@@ -45,6 +45,12 @@ const NAVBAR_ITEMS = [
 const NavBar = () => {
   const pathname = usePathname();
 
+  if (pathname === "/") {
+    return (
+      <div className="fixed bottom-0 flex h-[3.5rem] w-full max-w-[375px] bg-black" />
+    );
+  }
+
   return (
     <nav className="fixed bottom-0 flex h-[3.5rem] w-full max-w-[375px] bg-black py-2">
       {NAVBAR_ITEMS.map((item) => {

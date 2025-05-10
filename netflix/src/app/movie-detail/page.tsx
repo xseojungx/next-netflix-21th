@@ -1,6 +1,5 @@
 "use client";
 
-import PreviewImg from "@/assets/images/movie-detail-preview.png";
 import Image from "next/image";
 import { useMovieDetails } from "@/hooks/useTMDB";
 import { useSearchParams } from "next/navigation";

@@ -1,37 +1,12 @@
-'use client';
-
-import PreviewImg from "@/assets/movie-detail-preview.png";
-
+import PreviewImg from "@/assets/images/movie-detail-preview.png";
 import Image from "next/image";
-import { useMovieDetails } from '@/hooks/useTMDB';
-import { useSearchParams } from 'next/navigation';
 
 const MovieDetail = () => {
-  const searchParams = useSearchParams();
-  const movieId = searchParams.get('id');
-
-  const { 
-    data: movie,
-    isLoading,
-    error 
-  } = useMovieDetails(Number(movieId));
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!movie) return <div>Movie not found</div>;
-
   return (
     <div className="flex h-full w-full flex-col items-center bg-black">
       {/* 상단 프리뷰 사진 */}
       <section className="relative h-[26rem] w-full">
-        <Image 
-          src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} 
-          fill 
-          alt={movie.title}
-          className="object-cover"
-          priority
-        />
-
+        <Image src={PreviewImg} fill alt="어쩌구" priority />
         <div className="absolute bottom-0 left-0 h-full w-full [background:linear-gradient(180deg,rgba(0,0,0,0.45)_0%,rgba(0,0,0,0.00)_87.26%,#000_100%)]" />
       </section>
       <section className="flex w-full flex-col items-center pt-4">
@@ -44,20 +19,16 @@ const MovieDetail = () => {
           <span>Play</span>
         </button>
         <article className="m-8 flex flex-col items-center space-y-6 text-white">
-          <h1 className="h1 w-full">{movie.title}</h1>
-          <p className="b2 w-full">{movie.overview}</p>
-          <div className="flex gap-2">
-            {movie.genres.map(genre => (
-              <span key={genre.id} className="rounded-full bg-gray-800 px-3 py-1 text-sm">
-                {genre.name}
-              </span>
-            ))}
-          </div>
-          
+          <p className="h1 w-full">Previews</p>
+          <p className="b2 w-full">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit quam
+            dui, vivamusLorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Sit quam dui, vivamusLorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sit quam dui, vivamus
+          </p>
         </article>
       </section>
     </div>
   );
 };
-
 export default MovieDetail;

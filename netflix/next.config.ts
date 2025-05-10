@@ -32,21 +32,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
-module.exports = {
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/browse",
-        permanent: true,
-      },
-    ];
-  },
-};
-module.exports = {
-  images: {
-    domains: ['tmdb.org', 'themoviedb.org'],
-    remotePatterns: [new URL('https://image.tmdb.org/t/p/**')],
-  },
-};

@@ -8,6 +8,7 @@ import InfoIcon from "@/assets/images/InfoIcon.svg";
 import Top10 from "@/assets/images/Top10.svg";
 import { useEffect, useState } from "react";
 import cn from "@/utils/cn";
+import { usePopularMovies } from "@/hooks/useTMDB";
 
 const Home = () => {
   const HeaderList = [
@@ -29,7 +30,7 @@ const Home = () => {
     },
   ];
 
-  const TOP10_LIST = [
+  const movie = [
     {
       ranking: 1,
       thumbnail: "/MovieThumbnail.svg",
@@ -75,26 +76,42 @@ const Home = () => {
   const [currentTopIndex, setCurrentTopIndex] = useState<number>(0);
   const [fadeOut, setFadeOut] = useState<boolean>(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFadeOut(true);
+  const { data: TOP10_LIST, isLoading, error } = usePopularMovies();
 
-      setTimeout(() => {
-        setCurrentTopIndex((prev) => (prev + 1) % TOP10_LIST.length);
-        setFadeOut(false);
-      }, 1000);
+  useEffect(() => {
+    if (!TOP10_LIST) return;
+
+    const interval = setInterval(() => {
+      // 먼저 fadeOut 시작
+      setFadeOut(true);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [TOP10_LIST]);
 
-  const currentTop = TOP10_LIST[currentTopIndex];
+  useEffect(() => {
+    if (!fadeOut) return;
+
+    const timeout = setTimeout(() => {
+      // 이미지 변경 후 fadeIn
+      setCurrentTopIndex((prev) => (prev + 1) % 10);
+      setFadeOut(false);
+    }, 1000); // 페이드 아웃 완료 후 이미지 전환
+
+    return () => clearTimeout(timeout);
+  }, [fadeOut]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!TOP10_LIST) return <div>Top Rated Movie not found</div>;
+
+  const currentTop = TOP10_LIST?.results[currentTopIndex];
 
   return (
     <div className="no-scrollbar h-full w-full overflow-y-auto bg-black">
       <div className="relative flex h-[26rem] w-full flex-col items-center justify-between py-2">
         <Image
-          src={currentTop.thumbnail}
+          src={`https://image.tmdb.org/t/p/original${currentTop.poster_path}`}
           alt="Top Movie Thumbnail"
           fill
           sizes="100vw"
@@ -119,7 +136,7 @@ const Home = () => {
         <div className="z-20 flex items-center gap-2">
           <Top10 />
           <h1 className="text-[.875rem] leading-5 font-bold">
-            #{currentTop.ranking} in Nigeria Today
+            #{currentTopIndex + 1} in Korea Today
           </h1>
         </div>
       </div>

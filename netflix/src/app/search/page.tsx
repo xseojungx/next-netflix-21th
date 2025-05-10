@@ -63,8 +63,6 @@ const SearchPage = () => {
     ? (searchResults?.page ?? 0) < (searchResults?.total_pages ?? 0)
     : (popularMovies?.page ?? 0) < (popularMovies?.total_pages ?? 0);
 
-  const displayMovies = query ? searchResults?.results : popularMovies?.results;
-
   return (
     <div className="flex h-screen w-full flex-col bg-black pt-11">
       <SearchInput />

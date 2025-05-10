@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useTvDetails } from "@/hooks/useTMDB";
 import { useSearchParams } from "next/navigation";
-import { TvDetails } from "@/types/tmdb";
 
 const TvDetail = () => {
   const searchParams = useSearchParams();

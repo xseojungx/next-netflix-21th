@@ -5,7 +5,6 @@ import { useTvDetails } from "@/hooks/useTMDB";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-
 const TvDetailContent = () => {
   const searchParams = useSearchParams();
   const tvId = searchParams.get("id");
@@ -16,10 +15,9 @@ const TvDetailContent = () => {
   if (error) return <div>Error: {error.message}</div>;
   if (!tv) return <div>tv not found</div>;
 
-  const imageUrl = tv.backdrop_path 
+  const imageUrl = tv.backdrop_path
     ? `https://image.tmdb.org/t/p/original${tv.backdrop_path}`
     : `https://image.tmdb.org/t/p/original${tv.poster_path}`;
-console.log(tv);
   return (
     <div className="flex h-full w-full flex-col items-center bg-black">
       {/* 상단 프리뷰 사진 */}
@@ -62,11 +60,11 @@ console.log(tv);
 };
 
 const TvDetail = () => {
-    return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <TvDetailContent />
-      </Suspense>
-    );
-  };
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <TvDetailContent />
+    </Suspense>
+  );
+};
 
 export default TvDetail;

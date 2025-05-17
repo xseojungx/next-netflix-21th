@@ -18,7 +18,6 @@ import {
 import { goToMovieDetail, goToTvDetail } from "@/utils/routeFunction";
 import { useRouter } from "next/navigation";
 
-
 const Home = () => {
   const HeaderList = [
     {
@@ -44,7 +43,7 @@ const Home = () => {
 
   const {
     data: topRatedMovies,
-    isLoading: isTop10Loading,
+    isLoading: isTopRatedLoading,
     error: top10Error,
   } = useTopRatedMovies();
   const { data: topRatedTvSeries, isLoading: isTopRatedTvSeriesLoading } =
@@ -81,7 +80,7 @@ const Home = () => {
   const router = useRouter();
   const onMovieClick = (movieId: number) => {
     goToMovieDetail(router, movieId);
-  };  
+  };
   const onTvClick = (tvId: number) => {
     goToTvDetail(router, tvId);
   };
@@ -89,8 +88,8 @@ const Home = () => {
   return (
     <div className="no-scrollbar h-full w-full overflow-y-auto bg-black">
       <div className="relative flex h-[26rem] w-full flex-col items-center justify-between py-2">
-        {isTop10Loading ? (
-          <div className="absolute inset-0">Loading...</div>
+        {isTopRatedLoading ? (
+          <div className="animate-skeleton absolute inset-0" />
         ) : top10Error ? (
           <div className="absolute inset-0">Error: {top10Error.message}</div>
         ) : (
@@ -102,7 +101,7 @@ const Home = () => {
             }
             fill
             sizes="100"
-            priority
+            priority={currentTopIndex === 0}
             className={cn(
               "absolute inset-0 object-cover duration-1000",
               fadeOut ? "opacity-0" : "opacity-100",
@@ -161,97 +160,109 @@ const Home = () => {
         <section className="flex flex-col gap-4 px-4">
           <h2 className="text-[1.625rem] leading-5 font-bold">Previews</h2>
           <ul className="no-scrollbar flex gap-2 overflow-x-scroll">
-            {isTop10Loading ? (
-              <div className="h-25">Movies loading...</div>
-            ) : (
-              topRatedMovies?.results.map((movie) => (
-                <li
-                  key={movie.id}
-                  className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
-                  onClick={() => onMovieClick(movie.id)}
-                >
-                  <Image
-                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                    alt={movie.title || "Top Rated Movie poster"}
-                    width={100}
-                    height={100}
-                    className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+            {isTopRatedLoading
+              ? [...Array(6)].map((_, index) => (
+                  <li
+                    key={index}
+                    className="animate-skeleton h-25 w-25 shrink-0 overflow-hidden rounded-full"
                   />
-                </li>
-              ))
-            )}
+                ))
+              : topRatedMovies?.results.map((movie) => (
+                  <li
+                    key={movie.id}
+                    className="h-25 w-25 shrink-0 overflow-hidden rounded-full"
+                    onClick={() => onMovieClick(movie.id)}
+                  >
+                    <Image
+                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                      alt={movie.title || "Top Rated Movie poster"}
+                      width={100}
+                      height={100}
+                      className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </li>
+                ))}
           </ul>
         </section>
         <section className="flex flex-col gap-4 px-4">
           <h2 className="h2">Upcoming Movies</h2>
           <ul className="no-scrollbar flex gap-2 overflow-x-scroll">
-            {isUpcomingMoviesLoading ? (
-              <div className="h-44">Movies loading...</div>
-            ) : (
-              upcomingMovies?.results.map((movie) => (
-                <li
-                  key={movie.id}
-                  className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
-                  onClick={() => onMovieClick(movie.id)}
-                >
-                  <Image
-                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                    alt={movie.title || "Upcoming Movies Poster"}
-                    width={100}
-                    height={100}
-                    className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+            {isUpcomingMoviesLoading
+              ? [...Array(6)].map((_, index) => (
+                  <li
+                    key={index}
+                    className="animate-skeleton h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
                   />
-                </li>
-              ))
-            )}
+                ))
+              : upcomingMovies?.results.map((movie) => (
+                  <li
+                    key={movie.id}
+                    className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+                    onClick={() => onMovieClick(movie.id)}
+                  >
+                    <Image
+                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                      alt={movie.title || "Upcoming Movies Poster"}
+                      width="60"
+                      height="80"
+                      className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </li>
+                ))}
           </ul>
         </section>
         <section className="flex flex-col gap-4 px-4">
           <h2 className="h2">Top Rated TV Series</h2>
           <div className="no-scrollbar flex gap-2 overflow-x-scroll">
-            {isTopRatedTvSeriesLoading ? (
-              <div className="h-63">tv series loading...</div>
-            ) : (
-              topRatedTvSeries?.results.map((tv) => (
-                <li
-                  key={tv.id}
-                  className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
-                  onClick={() => onTvClick(tv.id)}
-                >
-                  <Image
-                    src={`https://image.tmdb.org/t/p/original${tv.poster_path}`}
-                    alt={tv.title || "Top rated TV Series Poster"}
-                    width={100}
-                    height={100}
-                    className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+            {isTopRatedTvSeriesLoading
+              ? [...Array(5)].map((_, index) => (
+                  <li
+                    key={index}
+                    className="animate-skeleton h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
                   />
-                </li>
-              ))
-            )}
+                ))
+              : topRatedTvSeries?.results.map((tv) => (
+                  <li
+                    key={tv.id}
+                    className="h-63 w-39 shrink-0 overflow-hidden rounded-[.125rem]"
+                    onClick={() => onTvClick(tv.id)}
+                  >
+                    <Image
+                      src={`https://image.tmdb.org/t/p/original${tv.poster_path}`}
+                      alt={tv.title || "Top rated TV Series Poster"}
+                      width={100}
+                      height={100}
+                      className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </li>
+                ))}
           </div>
         </section>
         <section className="flex flex-col gap-4 px-4">
           <h2 className="h2">Popular Movies</h2>
           <div className="no-scrollbar flex gap-2 overflow-x-scroll">
-            {isPopularMoviesLoading ? (
-              <div>movies loading...</div>
-            ) : (
-              popularMovies?.results.map((movie) => (
-                <li
-                  key={movie.id}
-                  className="h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
-                  onClick={() => onMovieClick(movie.id)}
-                >
-                  <Image
-                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                    alt={movie.title || "Popular Movie Poster"}
-                    width={100}
-                    height={100}
-                    className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+            {isPopularMoviesLoading
+              ? [...Array(6)].map((_, index) => (
+                  <li
+                    key={index}
+                    className="animate-skeleton h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
                   />
-                </li>
-              ))
-            )}
+                ))
+              : popularMovies?.results.map((movie) => (
+                  <li
+                    key={movie.id}
+                    className="relative h-44 w-25 shrink-0 overflow-hidden rounded-[.125rem]"
+                    onClick={() => onMovieClick(movie.id)}
+                  >
+                    <Image
+                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                      alt={movie.title || "Popular Movie Poster"}
+                      width="60"
+                      height="80"
+                      className="h-full w-full cursor-pointer object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </li>
+                ))}
           </div>
         </section>
       </main>

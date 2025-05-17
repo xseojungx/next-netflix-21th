@@ -61,6 +61,10 @@
     @apply text-[.6963rem] leading-[.8856rem] font-normal tracking-[-0.0019rem];
   }
 
+  .animate-skeleton {
+    animation: skeleton 3s infinite;
+  }
+
   @layer utilities {
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -70,25 +74,16 @@
       scrollbar-width: none;
     }
   }
+}
 
-  @keyframes flash {
-    0% {
-      background-color: var(--color-neutral-300);
-      box-shadow:
-        32px 0 var(--color-neutral-300),
-        -32px 0 #fff;
-    }
-    50% {
-      background-color: #fff;
-      box-shadow:
-        32px 0 var(--color-neutral-300),
-        -32px 0 var(--color-neutral-300);
-    }
-    100% {
-      background-color: var(--color-neutral-300);
-      box-shadow:
-        32px 0 #fff,
-        -32px 0 var(--color-neutral-300);
-    }
+@keyframes skeleton {
+  0% {
+    background-color: #b4b4b4;
+  }
+  50% {
+    background-color: #dbdbdb;
+  }
+  100% {
+    background-color: #b4b4b4;
   }
 }

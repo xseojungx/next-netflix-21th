@@ -10,18 +10,21 @@ interface MovieCardProps {
 
 const MovieCard = ({ movie }: MovieCardProps) => {
   const router = useRouter();
-  const imageUrl = movie.poster_path 
+  const imageUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : PlayIcon;
 
-    const onCardClick = () => {
-      goToMovieDetail(router, movie.id);
-    }
+  const onCardClick = () => {
+    goToMovieDetail(router, movie.id);
+  };
 
   return (
-    <div className=" h-[4.75rem] box-border flex h-19 w-full cursor-pointer items-center border-0 bg-[#424242] pr-3" onClick={onCardClick}>
+    <div
+      className="box-border flex h-19 w-full cursor-pointer items-center border-0 bg-[#424242] pr-3"
+      onClick={onCardClick}
+    >
       <Image
-        style={{ objectFit: "cover",height:"4.75rem",width:"146px"}}
+        style={{ objectFit: "cover", height: "4.75rem", width: "146px" }}
         src={imageUrl}
         alt={movie.title}
         height={76}

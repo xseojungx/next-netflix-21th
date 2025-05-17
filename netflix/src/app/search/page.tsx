@@ -7,6 +7,7 @@ import MovieCard from "@/components/search/MovieCard";
 import { useSearchMovies, usePopularMovies } from "@/hooks/useTMDB";
 import { Movie } from "@/types/tmdb";
 import { Suspense } from "react";
+import MovieCardSkeleton from "@/components/search/MovieCardSkeleton";
 const SearchContent = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
@@ -75,7 +76,7 @@ const SearchContent = () => {
         </p>
         <article className="no-scrollbar mt-5 flex h-fit w-full flex-1 flex-col space-y-[0.19rem] overflow-y-auto">
           {isLoading && page === 1 ? (
-            <div className="text-white">Loading...</div>
+            [...Array(10)].map((_, index) => <MovieCardSkeleton key={index} />)
           ) : allMovies.length > 0 ? (
             allMovies.map((movie, index) => (
               <div
@@ -92,9 +93,11 @@ const SearchContent = () => {
           ) : (
             <div className="text-white">No results found</div>
           )}
-          {isLoading && page > 1 && (
-            <div className="text-white">Loading more...</div>
-          )}
+          {isLoading &&
+            page > 1 &&
+            [...Array(10)].map((_, index) => (
+              <div key={index} className="animate-skeleton h-19 w-full" />
+            ))}
         </article>
       </section>
     </div>
